@@ -634,10 +634,11 @@ def noaccents2(string):
 
 def search_synonyms():
     create_file_with_content_if_not_exists(SEARCH_SYNONYM_PATH,
-                                           """# Comments in this file begin with a #
-# The syntax of other lines is 'word synonym' or 'word synonym synonym' (without the single quotes)
-# An arbitrary number of synonyms may be listed, separated by spaces. Extra whitespace is ignored.
-# The following line is a working example that maps 'Sonate' to 'Sonata' and 'Sonatina'
+                                           f"""# {SEARCH_SYNONYM_PATH}
+# - Comments in this file begin with a #
+# - The syntax of other lines is 'word synonym' or 'word synonym synonym' (without the single quotes)
+# - An arbitrary number of synonyms may be listed, separated by spaces. Extra whitespace is ignored.
+# - The following line is a working example that maps 'Sonate' to 'Sonata' and 'Sonatina'
 # Sonate Sonata Sonatina
 """)
 

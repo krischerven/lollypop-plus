@@ -14,12 +14,13 @@ from gi.repository import Gtk, GLib, Gdk, Handy
 
 from gettext import gettext as _
 
-from lollypop.define import App, NetworkAccessACL, SEARCH_SYNONYM_PATH, ScanType
+from lollypop.define import App, BUG_REPORT_URL, NetworkAccessACL, SEARCH_SYNONYM_PATH, ScanType
 from lollypop.widgets_row_device import DeviceRow
 from lollypop.helper_passwords import PasswordsHelper
 from lollypop.view_search import getLastSearchView
 
 import os
+import subprocess
 
 class SettingsDialog:
     """
@@ -196,7 +197,21 @@ class SettingsDialog:
             Open the search synonyms file for editing in the default text editor
             @param button as Gtk.Button
         """
-        os.system(f"xdg-open \"{SEARCH_SYNONYM_PATH}\" &")
+        editors = ["xdg-open", "gedit", "kate", "leafpad", "mousepad", "nano", "vim", "vi", "kwrite"]
+
+        def editor_is_available(editor):
+            return subprocess.call(["which", editor],
+                                   stdout=subprocess.DEVNULL,
+                                   stderr=subprocess.DEVNULL) == 0
+
+        for editor in editors:
+            if editor_is_available(editor):
+                subprocess.Popen([editor, SEARCH_SYNONYM_PATH])
+                return
+
+        App().window.container.show_notification(
+            _(f"Failed to find a suitable text editor. Please open a bug report at {BUG_REPORT_URL}"),
+            [], [])
 
     def _on_connect_button_clicked(self, button):
         """
