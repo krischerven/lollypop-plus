@@ -25,8 +25,9 @@ from functools import wraps
 
 from lollypop.logger import Logger
 from lollypop.define import App, Type, NetworkAccessACL
-from lollypop.define import StorageType
+from lollypop.define import StorageType, SEARCH_SYNONYM_PATH
 from lollypop.shown import ShownLists
+from lollypop.utils_file import create_file_with_content_if_not_exists
 
 
 def make_subrequest(value, operand, count):
@@ -629,3 +630,24 @@ def noaccents2(string):
     nfkd_form = unicodedata.normalize("NFKD", string)
     v = u"".join([c for c in nfkd_form if not unicodedata.combining(c)])
     return v.lower()
+
+
+def search_synonyms():
+    create_file_with_content_if_not_exists(SEARCH_SYNONYM_PATH,
+                                           """# Comments in this file begin with a #
+# The syntax of other lines is 'word synonym' or 'word synonym synonym' (without the single quotes)
+# An arbitrary number of synonyms may be listed, separated by spaces. Extra whitespace is ignored.
+# The following line is a working example that maps 'Sonate' to 'Sonata' and 'Sonatina'
+# Sonate Sonata Sonatina
+""")
+
+    synonyms = []
+    for line in open(SEARCH_SYNONYM_PATH, "r").readlines():
+        line = line.strip()
+        if line.startswith("#"):
+            continue
+        words = line.split(" ")
+        if len(words) > 1:
+            for word in words[1:]:
+                synonyms.append([words[0].lower(), word.strip().lower()])
+    return synonyms

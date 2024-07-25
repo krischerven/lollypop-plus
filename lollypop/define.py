@@ -43,6 +43,8 @@ ARTISTS_PATH = LOLLYPOP_DATA_PATH + "/artists"
 ARTIST_WIKI_PATH = LOLLYPOP_DATA_PATH + "/wiki"
 # Store for lyrics
 LYRICS_PATH = LOLLYPOP_DATA_PATH + "/lyrics"
+# Store for search synonyms
+SEARCH_SYNONYM_PATH = LOLLYPOP_DATA_PATH + "/search_synonyms.txt"
 
 
 class TimeStamp:
