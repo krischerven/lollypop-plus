@@ -632,7 +632,7 @@ def noaccents2(string):
     return v.lower()
 
 
-def word_case_type(new_word, old_word):
+def word_case_type(old_word, new_word):
     """
         Return <new_word> with the same case type as <old_word>, or <new_word>
         if <old_word> does not have a case type.

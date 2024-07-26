@@ -95,7 +95,7 @@ class LocalSearch(GObject.Object):
             words2 = []
             for word in words:
                 if word.lower() == kv[0]:
-                    words2.append(word_case_type(kv[1], word))
+                    words2.append(word_case_type(word, kv[1]))
                 else:
                     words2.append(word)
             search2 = " ".join(words2)
