@@ -423,7 +423,7 @@
                 <property name="subtitle" translatable="yes">Open the search synonyms file for editing</property>
                 <child>
                   <object class="GtkButton" id="edit_search_synonyms_button">
-                    <property name="label" translatable="yes">OPEN FILE</property>
+                    <property name="label" translatable="yes">EDIT</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>

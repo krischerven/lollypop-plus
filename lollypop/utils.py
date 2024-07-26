@@ -647,6 +647,8 @@ def search_synonyms():
         line = line.strip()
         if line.startswith("#"):
             continue
+        if line == "":
+            continue
         words = line.split(" ")
         if len(words) > 1:
             word1 = words[0]
