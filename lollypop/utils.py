@@ -649,6 +649,7 @@ def search_synonyms():
             continue
         words = line.split(" ")
         if len(words) > 1:
+            word1 = words[0]
             for word in words[1:]:
-                synonyms.append([words[0].lower(), word.strip().lower()])
+                synonyms.append([word1.lower(), word.strip().lower()])
     return synonyms
