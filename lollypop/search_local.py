@@ -15,7 +15,7 @@ from gi.repository import GObject, GLib
 from collections import Counter
 
 from lollypop.define import App
-from lollypop.utils import noaccents, search_synonyms, regexpr_and_valid
+from lollypop.utils import noaccents, search_synonyms, word_case_type, regexpr_and_valid
 
 
 
@@ -89,10 +89,16 @@ class LocalSearch(GObject.Object):
             @param search as str
             @return [string]
         """
-        search = search.lower()
         li = [search]
+        words = search.split(" ")
         for kv in search_synonyms():
-            search2 = search.replace(kv[0], kv[1])
+            words2 = []
+            for word in words:
+                if word.lower() == kv[0]:
+                    words2.append(word_case_type(kv[1], word))
+                else:
+                    words2.append(word)
+            search2 = " ".join(words2)
             if search2 != search:
                 li += self.__synonymic_search_strings(search2)
         return li

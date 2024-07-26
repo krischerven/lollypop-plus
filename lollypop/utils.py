@@ -632,12 +632,40 @@ def noaccents2(string):
     return v.lower()
 
 
+def word_case_type(new_word, old_word):
+    """
+        Return <new_word> with the same case type as <old_word>, or <new_word>
+        if <old_word> does not have a case type.
+
+        Valid case types are:
+            lowercase
+            UPPERCASE
+            Capitalcase
+
+        @param new_word as str
+        @param old_word as str
+        @return str
+    """
+    if old_word.islower():
+        return new_word.lower()
+    elif old_word.isupper():
+        return new_word.upper()
+    elif old_word[0].isupper() and old_word[1:].islower():
+        return new_word.capitalize()
+    else:
+        return new_word
+
+
 def search_synonyms():
+    """
+        Return a list of words that are synonym pairs.
+        @return [[str, str]]
+    """
     create_file_with_content_if_not_exists(SEARCH_SYNONYM_PATH,
                                            f"""# {SEARCH_SYNONYM_PATH}
 # - Comments in this file begin with a #
 # - The syntax of other lines is 'word synonym' or 'word synonym synonym' (without the single quotes)
-# - An arbitrary number of synonyms may be listed, separated by spaces. Extra whitespace is ignored.
+# - An arbitrary number of synonyms may be listed, separated by spaces. Extra whitespace is ignored. Words and synonyms are NOT case-sensitive.
 # - The following line is a working example that maps 'Sonate' to 'Sonata' and 'Sonatina'
 # Sonate Sonata Sonatina
 """)
