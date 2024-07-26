@@ -95,7 +95,6 @@ class LocalSearch(GObject.Object):
             search2 = search.replace(kv[0], kv[1])
             if search2 != search:
                 li += self.__synonymic_search_strings(search2)
-        print(li)
         return li
 
     def __search_tracks_generic(self, search, search_function, storage_type, cancellable):
